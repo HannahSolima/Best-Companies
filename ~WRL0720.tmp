@@ -4,12 +4,15 @@ In SQL Server, I created some very small tables about a few (fake) companies and
 
 
 #### Question 1
-Create a stored procedure that you pass a CompanyID, and it returns the Full Names (LAST, FIRST) of persons in that company and if they are a current employee. 
+Create a stored procedure that you pass a CompanyID and it returns a list of persons in that company
 
 #### Question 2
-The company, ReWind, is shutting down in 6 months. Which employee spent the longest time with the company? 
+The names in the Persons table are separated by last and first name. Your boss comes to you and tells you that she wants you to create a function that will combine the two columns and separate it with a comma. Apply the function to the Persons table. 
 
 #### Question 3
+The company, ReWind, is shutting down in 6 months. Which employee spent the longest time with the company? 
+
+#### Question 4
 Hannah Hammocks specializes in 5 different types of hammocks:
 * Hanging Chair Hammock ($45)
 * HoneyHammock (a hammock made for two) ($82)
@@ -23,32 +26,15 @@ Create a Hannah Hammocks table with all the specialized hammocks the small busin
 
 How would you advise Hannah Hammocks to optimize its net earnings? 
 
-#### Question 4
+#### Question 5
 You want the top 3 oldest and top 3 youngest workers in the same table. What is the difference in years between the youngest and oldest worker?
 
-#### Question 5
-Which business type is most prevalent? Which business type is the most profitable?
-
 #### Question 6
-Pretend you are a recruiter looking for someone with IT skills. Create a stored procedure called ITWorkers that pulls out the name of the persons who have “Analyst” or “Engineer” in the role column and the company for which they previously or currently work. 
+Which business type is most prevalent? Which business type is the most profitable? \
 
 #### Question 7
-Update the stored procedure ITWorkers to also include whether the person is a remote worker and whether the role was Full-Time or Part-Time. 
-
+Pretend you are a recruiter looking for someone with IT skills. Create a stored procedure that pulls out the name of the persons who have “Analyst” or “Engineer” in the role column and the company for which they previously or currently work. 
 
 #### Question 8
-Using ITWorkers, create table ExperiencedITWorkersNashville for all IT professionals that have Nashville as their home city and who have an average 4 years of experience. 
-
-#### Question 9
-TBD
-
-#### Question 10
-TBD
-
-#### Question 11
-TBD
-
-#### Question 12
-TBD
-
+Update the stored procedure to also include whether the person is a remote worker and whether the role was Full-Time or Part-Time. 
 
