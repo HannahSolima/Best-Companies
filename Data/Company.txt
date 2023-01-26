@@ -1,0 +1,17 @@
+CompanyID	Company	GrossRevenue	BusinessType	IsAmerican
+1	Edward Analytics	5000000	IT	1
+2	Cole and Company	2000000	Furniture	1
+3	Frez	400000	Ride Sharing	0
+4	Finx	200000	Sports	0
+5	KoalaKare	85000	Animal	1
+6	Carmien	1050000	Environmental	0
+7	Caroyta	20000000	Car	1
+8	ReWind	430000	Wellness	0
+9	Topeka Elementary	1000000	Education	1
+10	Georgeson University	44000000	Education	1
+11	Bedford Beds	880000	Furniture	0
+12	Hannah Hammocks	60000	Small Business	1
+13	Dillon Inc	45000000	Fashion	1
+14	GoGoBus	3000000	Transportation	1
+15	Atlanta Police Department	550000	Safety	1
+16	Neverland	5000000	TV enterainment	1

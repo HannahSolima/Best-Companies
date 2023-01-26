@@ -1,0 +1,51 @@
+PersonID	CompanyID	FT	PT	Role
+1	1	1	0	Data Analyst
+2	4	0	1	Manager
+3	5	1	0	Marketing Specialist
+4	5	0	1	Veterinarian
+5	15	1	0	Secretary
+6	11	0	1	CEO
+7	2	1	0	Marketing Specialist
+8	4	1	0	Manager Assistant
+9	1	1	0	Product Engineer
+10	9	0	1	Teacher
+11	9	1	0	Teacher
+12	13	1	0	Designer
+13	16	0	1	Sales
+14	3	1	0	Sales
+15	1	1	0	QA Engineer
+16	12	1	0	Owner
+17	1	1	0	Data Analyst
+18	7	1	0	Accountant
+19	6	1	0	Human Resources
+20	9	1	0	Teacher
+21	8	1	0	Customer Service
+22	10	0	1	History Professor
+23	11	1	0	Product Manufacturer
+24	12	1	0	Customer Service
+25	2	1	0	Team Member
+26	14	1	0	Driver
+27	1	0	1	Business Analyst
+28	13	1	0	Brand Specialist
+29	5	1	0	Human Resources
+30	6	1	0	Policy Advocate
+31	8	1	0	Coach
+32	13	1	0	Model
+33	11	1	0	Product Analyst
+34	16	1	0	Sound Producer
+35	15	1	0	Officer
+36	2	1	0	Intern
+37	3	0	1	President
+38	4	1	0	Player
+39	5	1	0	Event Coordinator
+40	6	1	0	Sales
+41	6	1	0	Intern
+42	7	1	0	Marketing Specialist
+43	8	1	0	Data Analyst
+44	14	1	0	Driver
+45	15	1	0	Officer
+46	16	0	1	Director
+47	2	1	0	Team Lead
+48	1	0	1	CEO
+49	2	1	0	Team Member
+50	10	1	0	Microbiology Professor
