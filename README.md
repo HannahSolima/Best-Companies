@@ -1,5 +1,8 @@
 # Companies
-In SQL Server, I created three small and simple tables about a few (fake) companies and its employees. This is to practice using SQL Server syntax, writing and creating functions as well as constructing and executing stored procedures. I primarily utilize this project as a way to refer back to the basics when necessary. 
+*In SQL Server, I created three small and simple tables about a few (fake) companies and its employees. This is to practice using SQL Server syntax, writing and creating functions as well as constructing and executing stored procedures. I primarily utilize this project as a way to refer back to the basics when necessary.* 
+
+***
+***
 
 
 
