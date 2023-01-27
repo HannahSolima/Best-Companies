@@ -8,21 +8,32 @@ Create a stored procedure that you pass a CompanyID, and it returns the Full Nam
 
 Test your MyEmployeesSP stored procedure by passing CompanyIDs 14, 5 and 6.
 
+***
+
 #### Question 2
 The company, Cole and Company, is shutting down in 6 months. 
 
 Which employee spent the longest time with the company? 
 
+
+***
+
 #### Question 3
 TBD 
+
+***
 
 #### Question 4
 You want the top 3 oldest and top 3 youngest workers in the same table. 
 
 What is the difference in years between the youngest and oldest worker?
 
+***
+
 #### Question 5
 Which business type is most prevalent? Most profitable?
+
+***
 
 #### Question 6 
 All cities are capital cities in US states. 
@@ -33,27 +44,43 @@ Which region (NORTH, SOUTH, WEST, EAST) do most persons reside?
 
 Does there appear to be any pattern with the region of persons and working for a non-American company?
 
+***
+
+
 #### Question 7
 Pretend you are a recruiter looking for someone with IT skills. Create a stored procedure called ITWorkers that pulls out the name of the persons who have “Analyst” or “Engineer” in the role column and the company for which they previously or currently work. 
 
-### Question 8
+***
+
+#### Question 8
 Update the stored procedure ITWorkers to also include whether the person is a remote worker and whether the role was Full-Time or Part-Time in the Result-Set. 
 
+***
 
 #### Question 9
 Using ITWorkers, create temporary table ExperiencedITWorkersNashville for all IT professionals that have Nashville as their home city and who have an average 4 years of experience. 
 
+***
+
 #### Question 10
 TBD
+
+***
 
 #### Question 11
 TBD
 
+***
+
 #### Question 12
 TBD
 
+***
+
 #### Question 13
 TBD
+
+***
 
 #### Question 14
 Hannah Hammocks specializes in 5 different types of hammocks:
@@ -78,6 +105,8 @@ SECTION 14.B
 How much did Hannah Hammocks earn per order? 
 
 What was the average net earnings per order compared to US and International order?
+
+***
 
 #### Question 15
 TBD
