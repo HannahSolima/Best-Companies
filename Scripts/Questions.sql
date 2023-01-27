@@ -86,16 +86,30 @@ SELECT TOP 3 BusinessType, COUNT(BusinessType) AS Count
 FROM Company
 GROUP BY BusinessType
 ORDER BY Count DESC;
---Education and Furniture tie as the most prevalent BusinessType
+--ANSWER: Education and Furniture tie as the most prevalent BusinessType
 
 SELECT TOP 3 BusinessType, SUM(GrossRevenue) AS GrossRevenue
 FROM Company
 GROUP BY BusinessType
 ORDER BY GrossRevenue DESC;
---Education and Fashion are the most profitable BusinessTypes
+--ANSWER: Education and Fashion are the most profitable BusinessTypes
 
 --QUESTION 6
---
+--Which city do most persons call home? 
+SELECT TOP 3 HomeCity, COUNT(HomeCity) AS Count
+FROM Persons
+GROUP BY HomeCity
+ORDER BY Count DESC;
+--ANSWER: Nashville
+
+--Which region (NORTH, SOUTH, WEST, EAST) do most persons reside? 
+--PLAN: Create a Stored Procedure that will convert these cities into the appropriate region and add it to a new regions column
+
+SELECT HomeCity, COUNT(HomeCity) AS Count
+FROM Persons
+GROUP BY HomeCity
+ORDER BY Count DESC
+
 
 --QUESTION 14
 --SECTION 14.A
