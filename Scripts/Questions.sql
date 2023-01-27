@@ -49,15 +49,91 @@ FROM ColeCompanyEmployees
 --He spent 124 months (10.3 years) with Cole and Company
 --Raycroft was not even a current employee with the company (EndDate in 2021)
 
---QUESTION 3
---SECTION 3.A
+--QUESTION 14
+--SECTION 14.A
 --Create a Hannah Hammocks table with all the specialized hammocks the small business offers and its pricing
+BEGIN TRAN
+CREATE TABLE HannahHammocks (
+	HammockType varchar(255),
+	PricePerHammockUSD int
+);
+COMMIT
+
+--Testing "INSERT INTO" with one row first
+INSERT INTO HannahHammocks (HammockType, PricePerHammockUSD)
+VALUES ('Hanging Chair Hammock', 45)
+--The values were inserted correctly
+
+--Inserting multiple rows of values
+INSERT INTO HannahHammocks (HammockType, PricePerHammockUSD)
+VALUES ('Honey Hammock',82),('Quilted Hammock',60), ('Woven Hammock', 55), ('Camping Hammock',40)
+
+--New HannahHammocks Table
+SELECT *
+FROM HannahHammocks
+
+--Create a Weekly Order Table for Hannah Hammocks incorporating all the hammocks the company sold this week.  
+BEGIN TRAN
+CREATE TABLE WeeklyOrdersHammocks (
+	OrderNo int,
+	HammockType varchar(255),
+	ShipDate date,
+	DeliveryDate date,
+	ShippedIntl bit
+);
+COMMIT
+
+--Inserting Hannah Hammocks' orders for the week
+INSERT INTO WeeklyOrdersHammocks (OrderNo, HammockType, ShipDate, DeliveryDate, ShippedIntl)
+VALUES  (51, 'Hanging Chair Hammock', DATEADD(DAY,-1,GETDATE()), DATEADD(DAY,8, DATEADD(DAY,-1,GETDATE())),1),
+		(51, 'Hanging Chair Hammock', DATEADD(DAY,-1,GETDATE()), DATEADD(DAY,8, DATEADD(DAY,-1,GETDATE())),1),
+		(51, 'Hanging Chair Hammock', DATEADD(DAY,-1,GETDATE()), DATEADD(DAY,8, DATEADD(DAY,-1,GETDATE())),1),
+		(52, 'Honey Hammock', DATEADD(WEEK, 1, GETDATE()), DATEADD(DAY,6,DATEADD(WEEK, 1, GETDATE())),0), 
+		(52, 'Honey Hammock', DATEADD(WEEK, 1, GETDATE()), DATEADD(DAY,6,DATEADD(WEEK, 1, GETDATE())),0),
+		(53, 'Quilted Hammock', DATEADD(DAY,-1,GETDATE()), DATEADD(DAY,2,GETDATE()),0), 
+		(53, 'Woven Hammock', DATEADD(DAY,-1,GETDATE()), DATEADD(DAY,2,GETDATE()),0),
+		(54, 'Woven Hammock', DATEADD(DAY,2,GETDATE()), DATEADD(DAY,3,GETDATE()),0),
+		(54, 'Camping Hammock', DATEADD(DAY,2,GETDATE()), DATEADD(DAY,3,GETDATE()),0),
+		(54, 'Camping Hammock', DATEADD(DAY,2,GETDATE()), DATEADD(DAY,3,GETDATE()),0),
+		(55, 'Honey Hammock', DATEADD(DAY, 1, GETDATE()), DATEADD(DAY,4,GETDATE()),1)
+
+--New WeeklyOrdersHammocks Table
+SELECT *
+FROM WeeklyOrdersHammocks
 
 
+--SECTION 14.B
+--For each day of shipping, Hannah Hammocks pays $2 (+$12 flat fee for orders to Mexico and Canada)
+--How much did Hannah Hammocks earn per order?
+SELECT  OrderNo,
+			PricePerHammockUSD*COUNT(Cost.HammockType)-USShippingCost AS NetEarningsPerOrder
+FROM (SELECT *,
+		CASE WHEN ShippedIntl = 1 THEN (DATEDIFF(DAY,ShipDate,DeliveryDate)*2)+12
+		ELSE DATEDIFF(DAY,ShipDate,DeliveryDate)*2 END AS USShippingCost
+		FROM WeeklyOrdersHammocks) AS Cost
+JOIN HannahHammocks AS HH
+	ON HH.HammockType = Cost.HammockType
+GROUP BY OrderNo, PricePerHammockUSD, USShippingCost
+ORDER BY OrderNo
 
---SECTION 3.B
---Make another table where your results show: Hammock Type, Number Shipped, Shipped Date, Delivery Date
---AND how much the company earned per order
+--What was the average net earnings per order compared to US and International orders?
+--Will use the above Result-Set as a CTE (with Top 7 added)
 
---SECTION 3.C
---How would you advise Hannah Hammocks to optimize its net earnings? 
+WITH EarnedPerOrder AS (
+	SELECT  TOP 7 OrderNo,
+				PricePerHammockUSD*COUNT(Cost.HammockType)-USShippingCost AS NetEarningsPerOrder
+	FROM (SELECT *,
+			CASE WHEN ShippedIntl = 1 THEN (DATEDIFF(DAY,ShipDate,DeliveryDate)*2)+12
+			ELSE DATEDIFF(DAY,ShipDate,DeliveryDate)*2 END AS USShippingCost
+			FROM WeeklyOrdersHammocks) AS Cost
+	JOIN HannahHammocks AS HH
+		ON HH.HammockType = Cost.HammockType
+	GROUP BY OrderNo, PricePerHammockUSD, USShippingCost
+	ORDER BY OrderNo)
+
+SELECT AVG(NetEarningsPerOrder) AS AVGEarnedPerOrder, COUNT(HammockType) AS TotalSold, ShippedIntl
+FROM WeeklyOrdersHammocks WOH
+JOIN EarnedPerOrder EPO
+	ON WOH.Orderno = EPO.Orderno
+GROUP BY ShippedIntl
+ORDER BY AVGEarnedPerOrder DESC
