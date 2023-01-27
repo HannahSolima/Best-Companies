@@ -105,35 +105,33 @@ FROM WeeklyOrdersHammocks
 --SECTION 14.B
 --For each day of shipping, Hannah Hammocks pays $2 (+$12 flat fee for orders to Mexico and Canada)
 --How much did Hannah Hammocks earn per order?
-SELECT  OrderNo,
-			PricePerHammockUSD*COUNT(Cost.HammockType)-USShippingCost AS NetEarningsPerOrder
-FROM (SELECT *,
-		CASE WHEN ShippedIntl = 1 THEN (DATEDIFF(DAY,ShipDate,DeliveryDate)*2)+12
-		ELSE DATEDIFF(DAY,ShipDate,DeliveryDate)*2 END AS USShippingCost
-		FROM WeeklyOrdersHammocks) AS Cost
-JOIN HannahHammocks AS HH
-	ON HH.HammockType = Cost.HammockType
-GROUP BY OrderNo, PricePerHammockUSD, USShippingCost
-ORDER BY OrderNo
+WITH GrossPerHammock AS (SELECT OrderNo, 
+								PricePerHammockUSD*COUNT(WOH.HammockType) AS GrossEarned
+						 FROM WeeklyOrdersHammocks WOH
+						 JOIN HannahHammocks AS HH
+							ON HH.HammockType = WOH.HammockType
+						 GROUP BY OrderNo, PricePerHammockUSD) -- This gives me how much was made per Hammock
+
+SELECT GPH.OrderNo, SUM(GrossEarned)-ShippingCost AS NetEarned --I summed GrossEarned to get GrossEarnedPerOrder instead of Per Hammock
+--INTO #HammockTemp --This is for the following question 
+--I created the Temp Table and then commented it (and GO) out 
+FROM (SELECT DISTINCT OrderNo,
+			 CASE WHEN ShippedIntl = 1 THEN (DATEDIFF(DAY,ShipDate,DeliveryDate)*2+12)
+			 ELSE DATEDIFF(DAY,ShipDate,DeliveryDate)*2 END AS ShippingCost --This subquery makes sure the shipping cost is only applied once per order
+	  FROM WeeklyOrdersHammocks) AS Cost 
+JOIN GrossPerHammock AS GPH 
+	ON Cost.Orderno = GPH.OrderNo
+GROUP BY GPH.OrderNo, ShippingCost
+ORDER BY GPH.OrderNo
+--GO
 
 --What was the average net earnings per order compared to US and International orders?
---Will use the above Result-Set as a CTE (with Top 7 added)
-
-WITH EarnedPerOrder AS (
-	SELECT  TOP 7 OrderNo,
-				PricePerHammockUSD*COUNT(Cost.HammockType)-USShippingCost AS NetEarningsPerOrder
-	FROM (SELECT *,
-			CASE WHEN ShippedIntl = 1 THEN (DATEDIFF(DAY,ShipDate,DeliveryDate)*2)+12
-			ELSE DATEDIFF(DAY,ShipDate,DeliveryDate)*2 END AS USShippingCost
-			FROM WeeklyOrdersHammocks) AS Cost
-	JOIN HannahHammocks AS HH
-		ON HH.HammockType = Cost.HammockType
-	GROUP BY OrderNo, PricePerHammockUSD, USShippingCost
-	ORDER BY OrderNo)
-
-SELECT AVG(NetEarningsPerOrder) AS AVGEarnedPerOrder, COUNT(HammockType) AS TotalSold, ShippedIntl
-FROM WeeklyOrdersHammocks WOH
-JOIN EarnedPerOrder EPO
-	ON WOH.Orderno = EPO.Orderno
+--I used the above Result-Set as a Temp Table (#HammockTemp)
+SELECT ShippedIntl,
+	   AVG(DISTINCT NetEarned) AS AVGEarnedPerOrder
+FROM #HammockTemp AS HT
+LEFT JOIN WeeklyOrdersHammocks WOH
+	ON HT.OrderNo = WOH.OrderNo
 GROUP BY ShippedIntl
 ORDER BY AVGEarnedPerOrder DESC
+
