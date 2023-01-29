@@ -20,7 +20,7 @@ Which employee spent the longest time with the company? 
 ***
 
 #### Question 3
-TBD 
+TBD
 
 ***
 
@@ -42,11 +42,9 @@ All the cities are US state capital cities.
 
 Which city do most persons call home? 
 
-Which region (NORTH, SOUTH, WEST, EAST) do most persons reside? 
-
+Which region (NORTH, SOUTH, WEST, EAST) do most persons reside?
 
 ***
-
 
 #### Question 7
 Does there appear to be any pattern with the region of persons and working for a non-American company?
@@ -69,17 +67,29 @@ Using ITWorkers, create temporary table ExperiencedITWorkersNashville for all IT
 ***
 
 #### Question 11
-TBD
+On which day of week were employees hired on? Rank by the percent of total in descending order.
+
+
+*BONUS*
+ Visualize this data using Power BI 
 
 ***
 
 #### Question 12
 TBD
 
+
+*BONUS*
+ Visualize this data using Power BI 
+
 ***
 
 #### Question 13
 TBD
+
+
+*BONUS*
+ Visualize this data using Power BI 
 
 ***
 
