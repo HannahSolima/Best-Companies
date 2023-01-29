@@ -36,14 +36,15 @@ WITH ColeCompanyEmployees AS (
 		ON p.PersonID = pc.PersonID
 	JOIN Company c
 		ON pc.CompanyID = c.CompanyID
-	WHERE c.Company = 'Cole and Company');
+	WHERE c.Company = 'Cole and Company')
 
 --Using the CTE, I need to figure out how many months each employee spent at Cole and Company
 --Current employees will be given an EndDate that is 6 months from today for when the company shuts down
 SELECT PersonID, LastName, FirstName,
-	CASE WHEN EndDate = 'null' THEN DATEDIFF(MONTH, CAST(StartDate as Date), DATEADD(MONTH, 6, GETDATE())) 
+	CASE WHEN ISNULL(EndDate, '') = '' THEN DATEDIFF(MONTH, CAST(StartDate as Date), DATEADD(MONTH, 6, GETDATE())) 
 	ELSE DATEDIFF(MONTH, CAST(StartDate as Date), CAST(EndDate as Date)) END AS MonthsWCompany
-FROM ColeCompanyEmployees;
+FROM ColeCompanyEmployees
+ORDER BY MonthsWCompany DESC;
 
 --ANSWER
 --Christian Raycroft was the longest employee.
@@ -59,14 +60,14 @@ SELECT *
 FROM
 (
 	(
-		SELECT TOP 3 LastName, FirstName, BirthYear,
+		SELECT TOP 3 WITH TIES LastName, FirstName, BirthYear,
 			('Youngest #' + CAST(ROW_NUMBER() OVER (ORDER BY BirthYear DESC) AS varchar(10))) AS AgeRank
 		--AgeRank is not necessary and makes the query look more complicated
 		--BUT the goal was to provide an immediate understanding of what THIS Result-Set was showing, which it did
 		FROM Persons
 		ORDER BY BirthYear DESC
 	UNION
-		SELECT TOP 3 LastName, FirstName, BirthYear,
+		SELECT TOP 3 WITH TIES LastName, FirstName, BirthYear,
 			('Oldest #' + CAST(ROW_NUMBER() OVER (ORDER BY BirthYear) AS varchar(10))) AS AgeRank
 		FROM Persons
 		ORDER BY BirthYear
@@ -82,13 +83,13 @@ FROM Persons;
 
 --QUESTION 5
 --Which business type is most prevalent? Most profitable?
-SELECT TOP 3 BusinessType, COUNT(BusinessType) AS Count
+SELECT TOP 1 WITH TIES BusinessType, COUNT(BusinessType) AS Count
 FROM Company
 GROUP BY BusinessType
 ORDER BY Count DESC;
 --ANSWER: Education and Furniture tie as the most prevalent BusinessType
 
-SELECT TOP 3 BusinessType, SUM(GrossRevenue) AS GrossRevenue
+SELECT TOP 1 WITH TIES BusinessType, SUM(GrossRevenue) AS GrossRevenue
 FROM Company
 GROUP BY BusinessType
 ORDER BY GrossRevenue DESC;
@@ -96,7 +97,7 @@ ORDER BY GrossRevenue DESC;
 
 --QUESTION 6
 --Which city do most persons call home? 
-SELECT TOP 1 City, COUNT(City) AS Count
+SELECT TOP 1 WITH TIES City, COUNT(City) AS Count
 FROM Persons
 GROUP BY City
 ORDER BY Count DESC;
@@ -105,23 +106,36 @@ ORDER BY Count DESC;
 --Which region (NORTH, SOUTH, WEST, EAST) do most persons reside? 
 --PLAN: Create a Stored Procedure that will convert these cities into the appropriate region and add it to a new regions column
 
-SELECT HomeCity, COUNT(HomeCity) AS Count
-FROM Persons
-GROUP BY HomeCity
-ORDER BY Count DESC
+--Adding the Region column
+ALTER TABLE Persons
+ADD Region varchar(20);
 
---The regions are according to the US Census Bureau. 
+--The regions are according to the US Census Bureau.
+CREATE PROCEDURE UpdateRegion 
+	@PersonID int
+	AS 
+		BEGIN
+		UPDATE Persons
+		SET Region = CASE WHEN State = 'AL' OR State == 'TN' OR State = 'GA' OR State = 'TX' OR State = 'FL' OR State = 'AK'
+		OR State = 'KY' OR State = 'LA' OR State = 'MS' OR State = 'DE' OR State = 'NC' OR State = 'MD' 
+		OR State = 'OK' OR State = 'VA' OR State = 'WV' OR State = 'SC' THEN Region = 'South'
 
-CASE WHEN State = 'AL' OR State == 'TN' OR State = 'GA' OR State = 'TX' OR State = 'FL' OR State = 'AK'
-	OR State = 'KY' OR State = 'LA' OR State = 'MS' OR State = 'DE' OR State = 'NC' OR State = 'MD' 
-	OR State = 'OK' OR State = 'VA' OR State = 'WV' OR State = 'SC' THEN Region = 'South'
-	WHEN State = 'ME' OR State = 'NH' OR State = 'VT' OR State = 'MA' OR State = 'RI' OR State = 'CT' 
-	OR State = 'NY' OR State = 'NJ' OR State = 'PA' THEN Region = 'Northeast'
-	WHEN State = 'OH' OR State = 'MI' OR State = 'IN' OR State = 'WI' OR State = 'IL' OR State = 'MN' OR State = 'IA' 
-	OR State = 'MO' OR State = 'ND' OR State = 'SD' OR State = 'NE' OR State = 'KS' THEN Region = 'Midwest'
-	WHEN State = 'MT' OR State = 'ID' OR State = 'WY' OR State = 'CO' OR State = 'NM' OR State = 'AZ' 
-	OR State = 'UT' OR State = 'NV' OR State = 'CA' OR State = 'OR' OR State = 'WA' OR State = 'AK' OR State = 'HI'
-	THEN Region = 'West'
+		WHEN State = 'ME' OR State = 'NH' OR State = 'VT' OR State = 'MA' OR State = 'RI' OR State = 'CT' 
+		OR State = 'NY' OR State = 'NJ' OR State = 'PA' THEN Region = 'Northeast'
+
+		WHEN State = 'OH' OR State = 'MI' OR State = 'IN' OR State = 'WI' OR State = 'IL' OR State = 'MN' OR State = 'IA' 
+		OR State = 'MO' OR State = 'ND' OR State = 'SD' OR State = 'NE' OR State = 'KS' THEN Region = 'Midwest'
+
+		WHEN State = 'MT' OR State = 'ID' OR State = 'WY' OR State = 'CO' OR State = 'NM' OR State = 'AZ' 
+		OR State = 'UT' OR State = 'NV' OR State = 'CA' OR State = 'OR' OR State = 'WA' OR State = 'AK' OR State = 'HI'
+		THEN Region = 'West' 
+
+		ELSE Region = Null END AS Region
+		WHERE PersonID = @PersonID
+		END
+
+
+
 
 --QUESTION 14
 --SECTION 14.A
@@ -148,17 +162,17 @@ FROM HannahHammocks
 
 --Create a Weekly Order Table for Hannah Hammocks incorporating all the hammocks the company sold this week.  
 BEGIN TRAN
-CREATE TABLE WeeklyOrdersHammocks (
+CREATE TABLE HH_Orders (
 	OrderNo int,
 	HammockType varchar(255),
 	ShipDate date,
-	DeliveryDate date,
+	EstDeliveryDate date,
 	ShippedIntl bit
 );
 COMMIT
 
 --Inserting Hannah Hammocks' orders for the week
-INSERT INTO WeeklyOrdersHammocks (OrderNo, HammockType, ShipDate, DeliveryDate, ShippedIntl)
+INSERT INTO HH_Orders (OrderNo, HammockType, ShipDate, EstDeliveryDate, ShippedIntl)
 VALUES  (51, 'Hanging Chair Hammock', DATEADD(DAY,-1,GETDATE()), DATEADD(DAY,8, DATEADD(DAY,-1,GETDATE())),1),
 		(51, 'Hanging Chair Hammock', DATEADD(DAY,-1,GETDATE()), DATEADD(DAY,8, DATEADD(DAY,-1,GETDATE())),1),
 		(51, 'Hanging Chair Hammock', DATEADD(DAY,-1,GETDATE()), DATEADD(DAY,8, DATEADD(DAY,-1,GETDATE())),1),
@@ -173,17 +187,17 @@ VALUES  (51, 'Hanging Chair Hammock', DATEADD(DAY,-1,GETDATE()), DATEADD(DAY,8, 
 
 --New WeeklyOrdersHammocks Table
 SELECT *
-FROM WeeklyOrdersHammocks
+FROM HH_Orders
 
 
 --SECTION 14.B
 --For each day of shipping, Hannah Hammocks pays $2 (+$12 flat fee for orders to Mexico and Canada)
 --How much did Hannah Hammocks earn per order?
 WITH GrossPerHammock AS (
-SELECT OrderNo, PricePerHammockUSD*COUNT(WOH.HammockType) AS GrossEarned
-FROM WeeklyOrdersHammocks WOH
+SELECT OrderNo, PricePerHammockUSD*COUNT(O.HammockType) AS GrossEarned
+FROM HH_Orders O
 JOIN HannahHammocks AS HH
-	ON HH.HammockType = WOH.HammockType
+	ON HH.HammockType = O.HammockType
 GROUP BY OrderNo, PricePerHammockUSD) -- This gives me how much was made per Hammock
 
 SELECT GPH.OrderNo, SUM(GrossEarned)-ShippingCost AS NetEarned --I summed GrossEarned to get GrossEarnedPerOrder instead of Per Hammock
@@ -191,9 +205,9 @@ SELECT GPH.OrderNo, SUM(GrossEarned)-ShippingCost AS NetEarned --I summed GrossE
 --I created the Temp Table and then commented it (and GO) out 
 FROM (
 	SELECT DISTINCT OrderNo,
-		CASE WHEN ShippedIntl = 1 THEN (DATEDIFF(DAY,ShipDate,DeliveryDate)*2+12)
-		ELSE DATEDIFF(DAY,ShipDate,DeliveryDate)*2 END AS ShippingCost --This subquery makes sure the shipping cost is only applied once per order
-	FROM WeeklyOrdersHammocks) AS Cost 
+		CASE WHEN ShippedIntl = 1 THEN (DATEDIFF(DAY,ShipDate,EstDeliveryDate)*2+12)
+		ELSE DATEDIFF(DAY,ShipDate,EstDeliveryDate)*2 END AS ShippingCost --This subquery makes sure the shipping cost is only applied once per order
+	FROM HH_Orders) AS Cost 
 JOIN GrossPerHammock AS GPH 
 	ON Cost.Orderno = GPH.OrderNo
 GROUP BY GPH.OrderNo, ShippingCost
@@ -205,8 +219,8 @@ ORDER BY GPH.OrderNo
 SELECT ShippedIntl,
 	AVG(DISTINCT NetEarned) AS AVGEarnedPerOrder
 FROM #HammockTemp AS HT
-LEFT JOIN WeeklyOrdersHammocks WOH
-	ON HT.OrderNo = WOH.OrderNo
+LEFT JOIN HH_Orders O
+	ON HT.OrderNo = O.OrderNo
 GROUP BY ShippedIntl
 ORDER BY AVGEarnedPerOrder DESC
 
