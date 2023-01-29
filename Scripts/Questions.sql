@@ -263,6 +263,12 @@ ORDER BY YearsExperience
 
 --QUESTION 11
 --On which day of week were employees hired on? Rank by the percent of total in descending order.
+SELECT DayHired, (COUNT(CAST(PersonID AS float))/CAST(TotalWorkers AS float))*100 AS PctWorkers
+FROM (SELECT DATENAME(WEEKDAY, StartDate) AS DayHired, PersonID, COUNT(PersonID) OVER() AS TotalWorkers
+	FROM Persons) AS sub
+GROUP BY DayHired, TotalWorkers
+ORDER BY PctWorkers DESC
+--ANSWER: Most workers were hired on Monday and Friday. Wednesday is the day the least amount of workers were hired.
 
 --QUESTION 14
 --SECTION 14.A
