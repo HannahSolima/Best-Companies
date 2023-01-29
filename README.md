@@ -38,21 +38,20 @@ Which business type is most prevalent? Most profitable?
 ***
 
 #### Question 6 
-All the cities are US state capital cities. 
+All the cities are US state capital cities. Which city do most persons call home? 
 
-Which city do most persons call home? 
-
-Which region (NORTH, SOUTH, WEST, EAST) do most persons reside?
+Which region (NORTH, SOUTH, WEST, EAST) do most persons reside? If there is not already a region column, create one to answer this question. 
 
 ***
 
 #### Question 7
-Does there appear to be any pattern with the region of persons and working for a non-American company?
+Does there appear to be any pattern with the region of persons and working remotely? 
+What about working for a non-American company?
 
 ***
 
 #### Question 8
-Pretend you are a recruiter looking for someone with IT skills. Create a stored procedure called ITWorkers that pulls out the name of the persons who have “Analyst” or “Engineer” in the role column and the company for which they previously worked or currently work. 
+Pretend you are a recruiter looking for someone with IT skills. Create a stored procedure called ITWorkers that returns the company and the persons who have “Analyst”, “Engineer” or “Developer” in their role title. 
 
 ***
 
@@ -65,13 +64,13 @@ Update the stored procedure ITWorkers to also include whether the person is a re
 Using ITWorkers, create temporary table ExperiencedITWorkersNashville for all IT professionals that have Nashville as their home city and who have an average 4 years of experience. 
 
 ***
-
+## PowerBI Dashboard
 #### Question 11
 On which day of week were employees hired on? Rank by the percent of total in descending order.
 
 
-*BONUS*
- Visualize this data using Power BI 
+**BONUS** <br>
+Visualize this data using Power BI 
 
 ***
 
@@ -79,7 +78,7 @@ On which day of week were employees hired on? Rank by the percent of total in de
 TBD
 
 
-*BONUS*
+**BONUS** <br>
  Visualize this data using Power BI 
 
 ***
@@ -88,11 +87,12 @@ TBD
 TBD
 
 
-*BONUS*
+**BONUS** <br>
  Visualize this data using Power BI 
 
 ***
 
+## Additional Questions
 #### Question 14
 Hannah Hammocks specializes in 5 different types of hammocks:
 * Hanging Chair Hammock ($45)

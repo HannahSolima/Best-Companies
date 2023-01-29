@@ -157,8 +157,8 @@ ORDER BY Count DESC
 --ANSWER: SOUTH
 
 --QUESTION 7
---Does there appear to be any pattern with the region of persons and working for a non-American company?
-SELECT Region, COUNT(Region) AS WorkersinRegion,
+--Does there appear to be any pattern with the region of persons and working remotely? 
+SELECT Region, COUNT(Region) AS Workers,
 	SUM(CAST(IsRemote AS int)) AS RemoteWorkers,
 	ROUND(SUM(CAST(IsRemote AS float))/COUNT(Region)*100,2) AS PctRemote
 FROM Persons p 
@@ -168,12 +168,64 @@ JOIN Company c
 	ON c.CompanyID = pc.CompanyID
 GROUP BY Region
 ORDER BY RemoteWorkers DESC
---The South has more workers, but the West has more remote workers
---The Northeast though has a higher percentage of remote workers
+--ANSWER: The South has more workers in total, but it is important to note that the South has more states in the region.
+--The West has more remote workersbut the Northeast has a higher percentage of remote workers.
+
+--What about working for a non-American company?
+SELECT Region, COUNT(Region) AS Workers,
+	SUM(CAST(IsAmerican AS int)) AS WithUSCompany,
+	ROUND(SUM(CAST(IsAmerican AS float))/COUNT(Region)*100,2) AS Pct_WithUSCompany
+FROM Persons p 
+JOIN PersonsCompany pc 
+	ON p.PersonID = pc.PersonID 
+JOIN Company c
+	ON c.CompanyID = pc.CompanyID
+GROUP BY Region
+ORDER BY WithUSCompany DESC
+--ANSWER: The South has more workers who work with a US Company, but the Midwest has a higher percentage of workers with a US Company.
+--Interestingly, this also means, by percentage, that the West and NorthEast have more workers with International Companies.
 
 --QUESTION 8
---TBD 
+--Create a stored procedure called ITWorkers 
+--Returns the company and the persons who have “Analyst”, “Engineer” or “Developer” in their role title. 
 
+CREATE PROCEDURE ITWorkers
+AS
+SELECT LastName, FirstName, Company, Role
+FROM Persons p
+JOIN PersonsCompany pc
+	ON pc.PersonID = p.PersonID
+JOIN Company c
+	ON c.CompanyID = pc.CompanyID
+WHERE LOWER(Role) LIKE '%analyst%' 
+	OR LOWER(Role) LIKE '%engineer%'
+	OR LOWER(Role) LIKE '%developer%'
+ORDER BY Company 
+GO;
+
+EXEC ITWorkers
+--There are 9 ITWorkers. 
+
+--QUESTION 9 
+--Update the stored procedure ITWorkers
+--Include: Remote worker? Role Full-Time or Part-Time? 
+
+ALTER PROCEDURE ITWorkers
+AS
+SELECT LastName, FirstName, Company, Role, IsRemote, FT, PT
+FROM Persons p
+JOIN PersonsCompany pc
+	ON pc.PersonID = p.PersonID
+JOIN Company c
+	ON c.CompanyID = pc.CompanyID
+WHERE LOWER(Role) LIKE '%analyst%' 
+	OR LOWER(Role) LIKE '%engineer%'
+	OR LOWER(Role) LIKE '%developer%'
+ORDER BY Company; 
+GO
+
+EXEC ITWorkers
+--The SP now shows whether a worker was Remote, FT or PT. 
 
 --QUESTION 14
 --SECTION 14.A
@@ -223,7 +275,7 @@ VALUES  (51, 'Hanging Chair Hammock', DATEADD(DAY,-1,GETDATE()), DATEADD(DAY,8, 
 		(54, 'Camping Hammock', DATEADD(DAY,2,GETDATE()), DATEADD(DAY,3,GETDATE()),0),
 		(55, 'Honey Hammock', DATEADD(DAY, 1, GETDATE()), DATEADD(DAY,4,GETDATE()),1)
 
---New WeeklyOrdersHammocks Table
+--New HH_Orders Table
 SELECT *
 FROM HH_Orders
 
@@ -231,25 +283,18 @@ FROM HH_Orders
 --SECTION 14.B
 --For each day of shipping, Hannah Hammocks pays $2 (+$12 flat fee for orders to Mexico and Canada)
 --How much did Hannah Hammocks earn per order?
-WITH GrossPerHammock AS (
-SELECT OrderNo, PricePerHammockUSD*COUNT(O.HammockType) AS GrossEarned
-FROM HH_Orders O
-JOIN HannahHammocks AS HH
-	ON HH.HammockType = O.HammockType
-GROUP BY OrderNo, PricePerHammockUSD) -- This gives me how much was made per Hammock
-
-SELECT GPH.OrderNo, SUM(GrossEarned)-ShippingCost AS NetEarned --I summed GrossEarned to get GrossEarnedPerOrder instead of Per Hammock
---INTO #HammockTemp --This is for the following question 
---I created the Temp Table and then commented it (and GO) out 
+SELECT OrderNo, GrossEarned-ShippingCost AS NetEarned
+--INTO #HammockTemp --Temp Table for below
 FROM (
-	SELECT DISTINCT OrderNo,
+	SELECT OrderNo, SUM(PricePerHammockUSD) AS GrossEarned,
 		CASE WHEN ShippedIntl = 1 THEN (DATEDIFF(DAY,ShipDate,EstDeliveryDate)*2+12)
-		ELSE DATEDIFF(DAY,ShipDate,EstDeliveryDate)*2 END AS ShippingCost --This subquery makes sure the shipping cost is only applied once per order
-	FROM HH_Orders) AS Cost 
-JOIN GrossPerHammock AS GPH 
-	ON Cost.Orderno = GPH.OrderNo
-GROUP BY GPH.OrderNo, ShippingCost
-ORDER BY GPH.OrderNo
+		ELSE DATEDIFF(DAY,ShipDate,EstDeliveryDate)*2 END AS ShippingCost
+	FROM HH_Orders O
+
+	JOIN HannahHammocks AS HH
+		ON HH.HammockType = O.HammockType
+	GROUP BY OrderNo, ShippedIntl, ShipDate,EstDeliveryDate) AS Cost 
+ORDER BY OrderNo
 --GO
 
 --What was the average net earnings per order compared to US and International orders?
