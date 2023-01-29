@@ -20,12 +20,12 @@ PersonID	LastName	FirstName	BirthYear	City	State	StartDate	EndDate	IsCurrentEmpl
 19	Keyes	Frank	1984	Atlanta	GA	2/14/2009		1	0
 20	Kitson	Daphne	1967	Springfield	IL	2/15/1998	8/8/2004	0	0
 21	Knight	Edward	1974	Denver	CO	2/16/2018		1	1
-22	Knott	Kiera	1987	Nashville	TN	2/17/2020		1	1
-23	Lolley	James	1994	Salem	OR	2/18/2021		1	1
+22	Knott	Kiera	1987	Salem	OR	2/17/2020		1	1
+23	Lolley	James	1994	Nashville	TN	2/18/2018		1	1
 24	Matthews	Grant	1997	Richmond	VA	2/19/2021		1	1
 25	McCloud	Samuel	1998	Salt Lake City	UT	2/20/2022		1	1
 26	McMahon	Michael	2002	Jackson	MS	2/21/2021		1	1
-27	Morris	Owen	1993	Helena	MT	2/22/2019	10/21/2019	0	0
+27	Morris	Owen	1993	Nashville	TN	2/22/2016	10/21/2020	0	0
 28	Mulgrew	Ron	1964	Carson City	NV	2/23/1999	10/22/2019	0	0
 29	Napier	Peter	1987	Atlanta	GA	2/24/2018	10/23/2019	0	0
 30	O'Dell	Jolene	1962	Frankfort	KY	2/25/2010	2/18/2015	0	0
@@ -34,14 +34,14 @@ PersonID	LastName	FirstName	BirthYear	City	State	StartDate	EndDate	IsCurrentEmpl
 33	Pierce	Alice	1990	Denver	CO	2/28/2011		1	0
 34	Rackham	Nora	1980	Sacramento	CA	3/1/2010		1	1
 35	Rasnick	Breanna	2000	Boise	ID	3/2/2010	2/18/2015	0	0
-36	Raycroft	Christian	1985	Nashville	TN	3/3/2011	7/11/2021	0	0
-37	Riggs	Timothy	1989	Lincoln	NE	3/4/2010	7/12/2021	0	0
+36	Raycroft	Christian	1985	Helena	MT	3/3/2020	7/11/2021	0	0
+37	Riggs	Timothy	1989	Nashville	TN	3/4/2010	7/12/2021	0	0
 38	Robins	Chris	1990	Santa Fe	NM	3/5/2010		1	1
 39	Roper	Liam	1992	Augusta	ME	3/6/2020	7/14/2021	0	0
 40	Sadler	Adam	1977	Cheyenne	WY	3/7/2010	2/18/2015	0	0
 41	Sandler	Dave	1998	Helena	MT	3/8/2022	4/24/2022	0	0
 42	Sanderson	Dean	2002	Topeka	KS	3/9/2021		1	1
-43	Saxby	Jake	2003	Nashville	TN	3/10/2020	4/26/2022	0	0
+43	Saxby	Jake	2003	Lincoln	NE	3/10/2020	4/26/2022	0	0
 44	Seabaugh	Tim	1965	Boston	MA	3/11/2010	2/18/2015	0	0
 45	Smith	John	1983	Carson City	NV	3/12/2010		1	1
 46	Snow	Brandon	1999	Austin	TX	3/13/2010	12/24/2012	0	0

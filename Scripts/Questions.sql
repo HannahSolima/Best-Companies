@@ -47,9 +47,8 @@ FROM ColeCompanyEmployees
 ORDER BY MonthsWCompany DESC;
 
 --ANSWER
---Christian Raycroft was the longest employee.
---He spent 124 months (10.3 years) with Cole and Company
---Raycroft was not even a current employee with the company (EndDate in 2021)
+--Coulson Damien was the longest employee.
+--He spent 97 months (8 years 1 month) with Cole and Company
 
 --QUESTION 3
 --TBD
@@ -115,7 +114,7 @@ CREATE PROCEDURE UpdatePersonsWRegion
 	AS 
 		BEGIN
 		UPDATE Persons
-		SET Region = CASE WHEN State IN ('AL','TN','GA','TX','FL','AR','KY','LA','MS', 'DE','NC','MD','OK','VA','WV','SC') THEN 'South'
+		SET Region = CASE WHEN State IN ('AL','TN','GA','TX','FL','AR','KY','LA','MS','DE','NC','MD','OK','VA','WV','SC') THEN 'South'
 		WHEN State IN ('ME','NH','VT','MA','RI','CT','NY','NJ','PA') THEN 'Northeast'
 		WHEN State IN ('OH','MI','IN','WI','IL','MN','IA','MO','ND','SD','NE','KS') THEN 'Midwest'
 		WHEN State IN ('MT','ID','WY','CO','NM','AZ','UT','NV','CA','OR','WA','AK','HI') THEN 'West' 
@@ -154,11 +153,12 @@ SELECT TOP 1 WITH TIES Region, COUNT(Region) AS Count
 FROM Persons
 GROUP BY Region
 ORDER BY Count DESC
---ANSWER: SOUTH
+--ANSWER: SOUTH, 20 workers reside there
 
 --QUESTION 7
+--SECTION 7.A
 --Does there appear to be any pattern with the region of persons and working remotely? 
-SELECT Region, COUNT(Region) AS Workers,
+SELECT Region, COUNT(p.PersonID) AS Workers,
 	SUM(CAST(IsRemote AS int)) AS RemoteWorkers,
 	ROUND(SUM(CAST(IsRemote AS float))/COUNT(Region)*100,2) AS PctRemote
 FROM Persons p 
@@ -171,8 +171,15 @@ ORDER BY RemoteWorkers DESC
 --ANSWER: The South has more workers in total, but it is important to note that the South has more states in the region.
 --The West has more remote workersbut the Northeast has a higher percentage of remote workers.
 
+--NOTE: In this data set, only 10 states being currently represented within the South region and the same is for the West.
+SELECT Region, COUNT(DISTINCT State) AS StateCount
+FROM Persons
+GROUP BY Region
+ORDER BY StateCount DESC
+
+--SECTION 7.B
 --What about working for a non-American company?
-SELECT Region, COUNT(Region) AS Workers,
+SELECT Region, COUNT(p.PersonID) AS Workers,
 	SUM(CAST(IsAmerican AS int)) AS WithUSCompany,
 	ROUND(SUM(CAST(IsAmerican AS float))/COUNT(Region)*100,2) AS Pct_WithUSCompany
 FROM Persons p 
@@ -212,7 +219,7 @@ EXEC ITWorkers
 
 ALTER PROCEDURE ITWorkers
 AS
-SELECT LastName, FirstName, Company, Role, IsRemote, FT, PT
+SELECT p.PersonID, LastName, FirstName, Company, Role, IsRemote, FT, PT
 FROM Persons p
 JOIN PersonsCompany pc
 	ON pc.PersonID = p.PersonID
@@ -226,6 +233,36 @@ GO
 
 EXEC ITWorkers
 --The SP now shows whether a worker was Remote, FT or PT. 
+
+--QUESTION 10 
+--Find all IT professionals located in TN and who have more than 4 years of experience
+CREATE TABLE #ITWorkersTemp (
+    PersonID int,
+	LastName varchar(255), 
+    FirstName varchar(255),
+	Company varchar (255),
+	Role varchar (255),
+	IsRemote bit,
+	FT bit,
+	PT bit
+)
+
+INSERT INTO #ITWorkersTemp EXEC ITWorkers
+
+SELECT temp.PersonID, temp.Lastname, temp.Firstname, Company, Role, State, YearsExperience
+FROM #ITWorkersTemp temp
+JOIN (SELECT PersonID, LastName, FirstName, State,
+		CAST(CASE WHEN ISNULL(EndDate, '') = '' THEN DATEDIFF(YEAR, CAST(StartDate as Date), GETDATE()) 
+		ELSE DATEDIFF(YEAR, CAST(StartDate as Date), CAST(EndDate as Date)) END AS int) AS YearsExperience
+	FROM Persons) AS sub
+	ON sub.PersonID = temp.PersonID
+WHERE YearsExperience > 4
+	AND State = 'TN'
+ORDER BY YearsExperience
+--ANSWER: James Lolley and Timothy Riggs are the only IT Workers based in TN with more than 4 years of experience. 
+
+--QUESTION 11
+--On which day of week were employees hired on? Rank by the percent of total in descending order.
 
 --QUESTION 14
 --SECTION 14.A

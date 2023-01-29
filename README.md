@@ -61,7 +61,7 @@ Update the stored procedure ITWorkers to also include whether the person is a re
 ***
 
 #### Question 10
-Using ITWorkers, create temporary table ExperiencedITWorkersNashville for all IT professionals that have Nashville as their home city and who have an average 4 years of experience. 
+Using ITWorkers, find all IT professionals located in Tennessee and who have more than 4 years of experience. 
 
 ***
 ## PowerBI Dashboard

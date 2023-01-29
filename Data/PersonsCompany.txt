@@ -23,7 +23,7 @@ PersonID	CompanyID	FT	PT	Role
 22	10	0	1	History Professor
 23	11	1	0	Product Engineer
 24	12	1	0	Customer Service
-25	2	1	0	Team Member
+25	2	1	0	Intern
 26	14	1	0	Driver
 27	1	0	1	Business Analyst
 28	13	1	0	Brand Specialist
@@ -39,7 +39,7 @@ PersonID	CompanyID	FT	PT	Role
 38	4	1	0	Player
 39	5	1	0	Event Coordinator
 40	6	1	0	Sales
-41	6	1	0	Intern
+41	6	1	0	Data Engineer
 42	7	1	0	Marketing Specialist
 43	8	1	0	Data Analyst
 44	14	1	0	Driver
@@ -47,5 +47,5 @@ PersonID	CompanyID	FT	PT	Role
 46	16	0	1	Director
 47	2	1	0	Team Lead
 48	1	0	1	CEO
-49	2	1	0	Team Member
+49	2	1	0	Full-Stack Developer
 50	10	1	0	Microbiology Professor
