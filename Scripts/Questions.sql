@@ -4,7 +4,7 @@
 
 CREATE OR ALTER PROCEDURE MyEmployeesSP @CompanyID int
 AS 
-SELECT (p.LastName + ', ' + p.FirstName) as FullName,
+SELECT CONCAT_WS(', ', p.LastName, p.FirstName) as FullName,
 		c.Company,
 		p.IsCurrentEmployee
 FROM Persons p
@@ -96,9 +96,9 @@ ORDER BY GrossRevenue DESC;
 
 --QUESTION 6
 --Which city do most persons call home? 
-SELECT TOP 3 HomeCity, COUNT(HomeCity) AS Count
+SELECT TOP 1 City, COUNT(City) AS Count
 FROM Persons
-GROUP BY HomeCity
+GROUP BY City
 ORDER BY Count DESC;
 --ANSWER: Nashville
 
@@ -110,6 +110,18 @@ FROM Persons
 GROUP BY HomeCity
 ORDER BY Count DESC
 
+--The regions are according to the US Census Bureau. 
+
+CASE WHEN State = 'AL' OR State == 'TN' OR State = 'GA' OR State = 'TX' OR State = 'FL' OR State = 'AK'
+	OR State = 'KY' OR State = 'LA' OR State = 'MS' OR State = 'DE' OR State = 'NC' OR State = 'MD' 
+	OR State = 'OK' OR State = 'VA' OR State = 'WV' OR State = 'SC' THEN Region = 'South'
+	WHEN State = 'ME' OR State = 'NH' OR State = 'VT' OR State = 'MA' OR State = 'RI' OR State = 'CT' 
+	OR State = 'NY' OR State = 'NJ' OR State = 'PA' THEN Region = 'Northeast'
+	WHEN State = 'OH' OR State = 'MI' OR State = 'IN' OR State = 'WI' OR State = 'IL' OR State = 'MN' OR State = 'IA' 
+	OR State = 'MO' OR State = 'ND' OR State = 'SD' OR State = 'NE' OR State = 'KS' THEN Region = 'Midwest'
+	WHEN State = 'MT' OR State = 'ID' OR State = 'WY' OR State = 'CO' OR State = 'NM' OR State = 'AZ' 
+	OR State = 'UT' OR State = 'NV' OR State = 'CA' OR State = 'OR' OR State = 'WA' OR State = 'AK' OR State = 'HI'
+	THEN Region = 'West'
 
 --QUESTION 14
 --SECTION 14.A

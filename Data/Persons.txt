@@ -1,51 +1,51 @@
-PersonID	LastName	FirstName	BirthYear	HomeCity	StartDate	EndDate	IsCurrentEmployee	IsRemote
-1	Adams	Adelaide	2001	Nashville	11/12/2021	null	1	1
-2	Abbot	George	1988	Sacramento	10/19/2012	11/2/2018	0	1
-3	Babbage	Brian	1990	Tallahassee	4/19/2014	11/4/2018	0	1
-4	Banks	Wesley	1989	Austin	1/30/2010	12/20/2018	0	0
-5	Carr	Kim	1971	Columbus	5/24/2010	null	1	1
-6	Cooper	Alice	1971	Harrisburg	2/1/2001	null	1	1
-7	Coulson	Damian 	1972	Tallahassee	7/2/2014	8/10/2022	0	0
-8	Davidson	Tina	1998	Montegomery	9/3/2020	7/4/2022	0	1
-9	Gates	William	1997	Phoenix	8/22/2021	4/10/2022	0	0
-10	Gilford	Gale	1999	Nashville	6/21/2022	null	1	1
-11	Goodall	Victor	1982	Trenton	5/12/2014	null	1	1
-12	Goodwin	Charlie	1995	Raleigh	8/30/2010	3/1/2011	0	0
-13	Gotts	Emma	1963	Nashville	8/8/2002	8/8/2004	0	1
-14	Henwood	Daisy	1986	Boston	2/9/2005	null	1	0
-15	Henwood	David	2001	Boston	2/10/2022	null	1	1
-16	Holiday	Hannah	1991	Atlanta	2/11/2019	null	1	0
-17	Keers	Scott	1998	Lansing	2/12/2018	null	1	1
-18	Keogan	Logan	1992	Denver	2/13/2017	null	1	1
-19	Keyes	Frank	1984	Atlanta	2/14/2009	null	1	0
-20	Kitson	Daphne	1967	Springfield	2/15/1998	8/8/2004	0	1
-21	Knight	Edward	1974	Denver	2/16/2018	null	1	0
-22	Knott	Kiera	1987	Nashville	2/17/2020	null	1	0
-23	Lolley	James	1994	Salem	2/18/2021	null	1	1
-24	Matthews	Grant	1997	Richmond	2/19/2021	null	1	0
-25	McCloud	Samuel	1998	Salt Lake City	2/20/2022	null	1	0
-26	McMahon	Michael	2002	Jackson	2/21/2021	null	1	1
-27	Morris	Owen	1993	Helena	2/22/2019	10/21/2019	0	0
-28	Mulgrew	Ron	1964	Carson City	2/23/1999	10/22/2019	0	0
-29	Napier	Peter	1987	Atlanta	2/24/2018	10/23/2019	0	0
-30	O'Dell	Jolene	1962	Frankfort	2/25/2010	2/18/2015	0	1
-31	Oatway	Michael	1981	Concord	2/26/2010	null	1	0
-32	Picket	Sierra	1970	Little Rock	2/27/2012	null	1	0
-33	Pierce	Alice	1990	Denver	2/28/2011	null	1	0
-34	Rackham	Nora	1980	Sacramento	3/1/2010	null	1	1
-35	Rasnick	Breanna	2000	Boise	3/2/2010	2/18/2015	0	0
-36	Raycroft	Christian	1985	Nashville	3/3/2011	7/11/2021	0	0
-37	Riggs	Timothy	1989	Lincoln	3/4/2010	7/12/2021	0	0
-38	Robins	Chris	1990	Santa Fe	3/5/2010	null	1	0
-39	Roper	Liam	1992	Augusta	3/6/2020	7/14/2021	0	1
-40	Sadler	Adam	1977	Cheyenna	3/7/2010	2/18/2015	0	1
-41	Sandler	Dave	1998	Helena	3/8/2022	4/24/2022	0	0
-42	Sanderson	Dean	2002	Topeka	3/9/2021	null	1	1
-43	Saxby	Jake	2003	Nashville	3/10/2020	4/26/2022	0	1
-44	Seabaugh	Tim	1965	Montpelier	3/11/2010	2/18/2015	0	0
-45	Smith	John	1983	Carson City	3/12/2010	null	1	1
-46	Snow	Brandon	1999	Austin	3/13/2010	12/24/2012	0	0
-47	Scott	Lily	2001	Bismarck	3/14/2022	null	1	1
-48	Tebb	Nathan	1998	Phoenix	3/15/2019	null	1	1
-49	West	Sally	1991	Richmond	3/16/2010	2/18/2015	0	0
-50	Wornum	Arthur	1968	Salem	3/17/2010	null	1	1
+PersonID	LastName	FirstName	BirthYear	City	State	StartDate	EndDate	IsCurrentEmployee	IsRemote
+1	Adams	Adelaide	2001	Nashville	TN	11/12/2021		0	0
+2	Abbot	George	1988	Sacramento	CA	10/19/2012	11/2/2018	0	0
+3	Babbage	Brian	1990	Tallahassee	FL	4/19/2014	11/4/2018	0	0
+4	Banks	Wesley	1989	Austin	TX	1/30/2010	12/20/2018	0	0
+5	Carr	Kim	1971	Columbus	OH	5/24/2010		1	0
+6	Cooper	Alice	1971	Harrisburg	PA	2/1/2001		1	1
+7	Coulson	Damian 	1972	Tallahassee	FL	7/2/2014	8/10/2022	0	0
+8	Davidson	Tina	1998	Montegomery	AL	9/3/2020	7/4/2022	0	0
+9	Gates	William	1997	Phoenix	AZ	8/22/2021	4/10/2022	0	0
+10	Gilford	Gale	1999	Nashville	TN	6/21/2022		1	1
+11	Goodall	Victor	1982	Trenton	NJ	5/12/2014		1	1
+12	Goodwin	Charlie	1995	Raleigh	NC	8/30/2010	3/1/2011	0	0
+13	Gotts	Emma	1963	Nashville	TN	8/8/2002	8/8/2004	0	0
+14	Henwood	Daisy	1986	Boston	MA	2/9/2005		1	1
+15	Henwood	David	2001	Boston	MA	2/10/2022		1	0
+16	Holiday	Hannah	1991	Atlanta	GA	2/11/2019		1	1
+17	Keers	Scott	1998	Lansing	MI	2/12/2018		1	1
+18	Keogan	Logan	1992	Denver	CO	2/13/2017		1	1
+19	Keyes	Frank	1984	Atlanta	GA	2/14/2009		1	0
+20	Kitson	Daphne	1967	Springfield	IL	2/15/1998	8/8/2004	0	0
+21	Knight	Edward	1974	Denver	CO	2/16/2018		1	1
+22	Knott	Kiera	1987	Nashville	TN	2/17/2020		1	1
+23	Lolley	James	1994	Salem	OR	2/18/2021		1	1
+24	Matthews	Grant	1997	Richmond	VA	2/19/2021		1	1
+25	McCloud	Samuel	1998	Salt Lake City	UT	2/20/2022		1	1
+26	McMahon	Michael	2002	Jackson	MS	2/21/2021		1	1
+27	Morris	Owen	1993	Helena	MT	2/22/2019	10/21/2019	0	0
+28	Mulgrew	Ron	1964	Carson City	NV	2/23/1999	10/22/2019	0	0
+29	Napier	Peter	1987	Atlanta	GA	2/24/2018	10/23/2019	0	0
+30	O'Dell	Jolene	1962	Frankfort	KY	2/25/2010	2/18/2015	0	0
+31	Oatway	Michael	1981	Concord	NH	2/26/2010		1	1
+32	Picket	Sierra	1970	Little Rock	AR	2/27/2012		1	1
+33	Pierce	Alice	1990	Denver	CO	2/28/2011		1	0
+34	Rackham	Nora	1980	Sacramento	CA	3/1/2010		1	1
+35	Rasnick	Breanna	2000	Boise	ID	3/2/2010	2/18/2015	0	0
+36	Raycroft	Christian	1985	Nashville	TN	3/3/2011	7/11/2021	0	0
+37	Riggs	Timothy	1989	Lincoln	NE	3/4/2010	7/12/2021	0	0
+38	Robins	Chris	1990	Santa Fe	NM	3/5/2010		1	1
+39	Roper	Liam	1992	Augusta	ME	3/6/2020	7/14/2021	0	0
+40	Sadler	Adam	1977	Cheyenne	WY	3/7/2010	2/18/2015	0	0
+41	Sandler	Dave	1998	Helena	MT	3/8/2022	4/24/2022	0	0
+42	Sanderson	Dean	2002	Topeka	KS	3/9/2021		1	1
+43	Saxby	Jake	2003	Nashville	TN	3/10/2020	4/26/2022	0	0
+44	Seabaugh	Tim	1965	Boston	MA	3/11/2010	2/18/2015	0	0
+45	Smith	John	1983	Carson City	NV	3/12/2010		1	1
+46	Snow	Brandon	1999	Austin	TX	3/13/2010	12/24/2012	0	0
+47	Scott	Lily	2001	Topeka	KS	3/14/2022		1	0
+48	Tebb	Nathan	1998	Phoenix	AZ	3/15/2019		1	1
+49	West	Sally	1991	Richmond	VA	3/16/2010	2/18/2015	0	0
+50	Wornum	Arthur	1968	Salem	OR	3/17/2010		1	1

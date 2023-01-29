@@ -98,12 +98,12 @@ Three Hanging Chair Hammocks were shipped yesterday to Canada and will be delive
 
 There is a last-minute order for one Honey Hammock in Cancun, Mexico! Hannah Hammocks will ship it the next morning; delivery is 4 days.
 
-**SECTION 14.A** <br>
+**Section 14.A** <br>
 Create a Hannah Hammocks table with all the specialized hammocks the small business offers and its pricing. 
 
 Create a Weekly Order Table for Hannah Hammocks incorporating all the hammocks the company sold this week as well as its shipping and delivery dates and whether an order was shipped internationally.
 
-**SECTION 14.B** <br>
+**Section 14.B** <br>
 How much did Hannah Hammocks earn per order? 
 
 What was the average net earnings per order compared to US and International order?
