@@ -104,37 +104,75 @@ ORDER BY Count DESC;
 --ANSWER: Nashville
 
 --Which region (NORTH, SOUTH, WEST, EAST) do most persons reside? 
---PLAN: Create a Stored Procedure that will convert these cities into the appropriate region and add it to a new regions column
 
 --Adding the Region column
 ALTER TABLE Persons
 ADD Region varchar(20);
 
 --The regions are according to the US Census Bureau.
-CREATE PROCEDURE UpdateRegion 
+CREATE PROCEDURE UpdatePersonsWRegion 
 	@PersonID int
 	AS 
 		BEGIN
 		UPDATE Persons
-		SET Region = CASE WHEN State = 'AL' OR State == 'TN' OR State = 'GA' OR State = 'TX' OR State = 'FL' OR State = 'AK'
-		OR State = 'KY' OR State = 'LA' OR State = 'MS' OR State = 'DE' OR State = 'NC' OR State = 'MD' 
-		OR State = 'OK' OR State = 'VA' OR State = 'WV' OR State = 'SC' THEN Region = 'South'
-
-		WHEN State = 'ME' OR State = 'NH' OR State = 'VT' OR State = 'MA' OR State = 'RI' OR State = 'CT' 
-		OR State = 'NY' OR State = 'NJ' OR State = 'PA' THEN Region = 'Northeast'
-
-		WHEN State = 'OH' OR State = 'MI' OR State = 'IN' OR State = 'WI' OR State = 'IL' OR State = 'MN' OR State = 'IA' 
-		OR State = 'MO' OR State = 'ND' OR State = 'SD' OR State = 'NE' OR State = 'KS' THEN Region = 'Midwest'
-
-		WHEN State = 'MT' OR State = 'ID' OR State = 'WY' OR State = 'CO' OR State = 'NM' OR State = 'AZ' 
-		OR State = 'UT' OR State = 'NV' OR State = 'CA' OR State = 'OR' OR State = 'WA' OR State = 'AK' OR State = 'HI'
-		THEN Region = 'West' 
-
-		ELSE Region = Null END AS Region
+		SET Region = CASE WHEN State IN ('AL','TN','GA','TX','FL','AR','KY','LA','MS', 'DE','NC','MD','OK','VA','WV','SC') THEN 'South'
+		WHEN State IN ('ME','NH','VT','MA','RI','CT','NY','NJ','PA') THEN 'Northeast'
+		WHEN State IN ('OH','MI','IN','WI','IL','MN','IA','MO','ND','SD','NE','KS') THEN 'Midwest'
+		WHEN State IN ('MT','ID','WY','CO','NM','AZ','UT','NV','CA','OR','WA','AK','HI') THEN 'West' 
+		ELSE Null END
 		WHERE PersonID = @PersonID
 		END
 
+--Testing out the new stored procedure
+EXEC UpdatePersonsWRegion @PersonID = 1
 
+--The first person's Region has been updated
+SELECT *
+FROM Persons
+
+--Creating a loop to apply stored procedure to all rows
+DECLARE @ID int
+
+SELECT @ID = MIN(p.PersonID)
+FROM Persons p
+
+WHILE(SELECT COUNT(1)
+      FROM Persons p
+      WHERE p.PersonID >= @ID) > 0
+    BEGIN
+
+        EXEC UpdatePersonsWRegion @PersonID = @ID
+
+        SELECT @ID = MIN(p.PersonID)
+		FROM Persons p
+        WHERE p.PersonID > @ID
+    END
+
+--Now that I have the Regions in the Persons Table, back to the original question:
+--Which region (NORTH, SOUTH, WEST, EAST) do most persons reside? 
+SELECT TOP 1 WITH TIES Region, COUNT(Region) AS Count
+FROM Persons
+GROUP BY Region
+ORDER BY Count DESC
+--ANSWER: SOUTH
+
+--QUESTION 7
+--Does there appear to be any pattern with the region of persons and working for a non-American company?
+SELECT Region, COUNT(Region) AS WorkersinRegion,
+	SUM(CAST(IsRemote AS int)) AS RemoteWorkers,
+	ROUND(SUM(CAST(IsRemote AS float))/COUNT(Region)*100,2) AS PctRemote
+FROM Persons p 
+JOIN PersonsCompany pc 
+	ON p.PersonID = pc.PersonID 
+JOIN Company c
+	ON c.CompanyID = pc.CompanyID
+GROUP BY Region
+ORDER BY RemoteWorkers DESC
+--The South has more workers, but the West has more remote workers
+--The Northeast though has a higher percentage of remote workers
+
+--QUESTION 8
+--TBD 
 
 
 --QUESTION 14

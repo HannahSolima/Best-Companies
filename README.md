@@ -38,34 +38,33 @@ Which business type is most prevalent? Most profitable?
 ***
 
 #### Question 6 
-All the home cities are US state capital cities. 
+All the cities are US state capital cities. 
 
 Which city do most persons call home? 
 
 Which region (NORTH, SOUTH, WEST, EAST) do most persons reside? 
 
-Does there appear to be any pattern with the region of persons and working for a non-American company?
 
 ***
 
 
 #### Question 7
-Pretend you are a recruiter looking for someone with IT skills. Create a stored procedure called ITWorkers that pulls out the name of the persons who have “Analyst” or “Engineer” in the role column and the company for which they previously worked or currently work. 
+Does there appear to be any pattern with the region of persons and working for a non-American company?
 
 ***
 
 #### Question 8
-Update the stored procedure ITWorkers to also include whether the person is a remote worker and whether the role was Full-Time or Part-Time in the Result-Set. 
+Pretend you are a recruiter looking for someone with IT skills. Create a stored procedure called ITWorkers that pulls out the name of the persons who have “Analyst” or “Engineer” in the role column and the company for which they previously worked or currently work. 
 
 ***
 
 #### Question 9
-Using ITWorkers, create temporary table ExperiencedITWorkersNashville for all IT professionals that have Nashville as their home city and who have an average 4 years of experience. 
+Update the stored procedure ITWorkers to also include whether the person is a remote worker and whether the role was Full-Time or Part-Time in the Result-Set. 
 
 ***
 
 #### Question 10
-TBD
+Using ITWorkers, create temporary table ExperiencedITWorkersNashville for all IT professionals that have Nashville as their home city and who have an average 4 years of experience. 
 
 ***
 
