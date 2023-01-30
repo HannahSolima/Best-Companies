@@ -20,7 +20,7 @@ Which employee spent the longest time with the company? 
 ***
 
 #### Question 3
-TBD
+Provide a list of active employees hired within the last 5 years sorted by last name, displaying First Initial and Last Name and hire date. 
 
 ***
 
@@ -45,7 +45,10 @@ Which region (NORTH, SOUTH, WEST, EAST) do most persons reside? If there is not 
 ***
 
 #### Question 7
+*Section 7.A*<br>
 Does there appear to be any pattern with the region of persons and working remotely? 
+
+*Section 7.B* <br>
 What about working for a non-American company?
 
 ***
@@ -70,7 +73,7 @@ On which day of week were employees hired on? Rank by the percent of total in de
 
 
 **BONUS** <br>
-Visualize this data using Power BI 
+Visualize this data using Power BI. Add link to a PDF file and put it in a new folder called Dashboard. 
 
 ***
 

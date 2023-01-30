@@ -51,7 +51,14 @@ ORDER BY MonthsWCompany DESC;
 --He spent 97 months (8 years 1 month) with Cole and Company
 
 --QUESTION 3
---TBD
+--Provide a list of active employees hired within the last 5 years 
+--Sorted by last name
+--Displaying First Initial and Last Name and hire date
+SELECT LEFT(FirstName,1) AS First_Initial, LastName, StartDate
+FROM Persons
+WHERE IsCurrentEmployee = 1 AND StartDate >= '01/01/2018'
+ORDER BY LastName
+--There are 26 active employees that were hired within the last 5 years 
 
 --QUESTION 4
 --You want the top 3 oldest and top 3 youngest workers in the same table. 
@@ -242,7 +249,7 @@ CREATE TABLE #ITWorkersTemp (
     FirstName varchar(255),
 	Company varchar (255),
 	Role varchar (255),
-	IsRemote bit,
+	IsRemote bit,add
 	FT bit,
 	PT bit
 )
@@ -269,6 +276,12 @@ FROM (SELECT DATENAME(WEEKDAY, StartDate) AS DayHired, PersonID, COUNT(PersonID)
 GROUP BY DayHired, TotalWorkers
 ORDER BY PctWorkers DESC
 --ANSWER: Most workers were hired on Monday and Friday. Wednesday is the day the least amount of workers were hired.
+
+--QUESTION 12
+--TBD
+
+--QUESTION 13
+--TBD 
 
 --QUESTION 14
 --SECTION 14.A
@@ -322,7 +335,6 @@ VALUES  (51, 'Hanging Chair Hammock', DATEADD(DAY,-1,GETDATE()), DATEADD(DAY,8, 
 SELECT *
 FROM HH_Orders
 
-
 --SECTION 14.B
 --For each day of shipping, Hannah Hammocks pays $2 (+$12 flat fee for orders to Mexico and Canada)
 --How much did Hannah Hammocks earn per order?
@@ -349,4 +361,7 @@ LEFT JOIN HH_Orders O
 	ON HT.OrderNo = O.OrderNo
 GROUP BY ShippedIntl
 ORDER BY AVGEarnedPerOrder DESC
+
+--QUESTION 15
+--TBD
 
