@@ -92,13 +92,10 @@ How much did Hannah Hammocks earn per order?
 
 What was the average net earnings per order compared to US and International order?
 
-## PowerBI Dashboard
+***
+
 #### Question 12
 On which day of week were employees hired on? Rank by the percent of total in descending order.
-
-
-**BONUS** <br>
-Visualize this data using Power BI. Add link to a PDF file and put it in a new folder called Dashboard. 
 
 ***
 
@@ -111,15 +108,10 @@ Create a table of PersonId, LogDate, StartTime, EndTime. 
 **Section 13.B** <br>
 Create a Stored Procedure that inserts this data based on an employee using a simple Start Time / End Time interface. The SP should determine whether to insert a new record or close out an existing record based on the existing data. Assume no one will work across midnight. Enter several weeks of data for at least 3 employees.
 
-**BONUS** <br>
-Visualize a time log with Employees along y axis and the hours work per week across the x axis for the last month. 
-
-**Note: ** If an employee does not enter an End Time, then ignore that record.
-
 ***
 
 #### Question 14
-Using the Remote Employee work log data from Q#12, produce a visualization showing the average coverage time per day of the week for all remote employee over the course of the last month.
+Using PowerBI, create an interactive dashboard.
 
 ***
 
