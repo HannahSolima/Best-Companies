@@ -67,36 +67,8 @@ Update the stored procedure ITWorkers to also include whether the person is a re
 Using ITWorkers, find all IT professionals located in Tennessee and who have more than 4 years of experience. 
 
 ***
-## PowerBI Dashboard
+
 #### Question 11
-On which day of week were employees hired on? Rank by the percent of total in descending order.
-
-
-**BONUS** <br>
-Visualize this data using Power BI. Add link to a PDF file and put it in a new folder called Dashboard. 
-
-***
-
-#### Question 12
-TBD
-
-
-**BONUS** <br>
- Visualize this data using Power BI 
-
-***
-
-#### Question 13
-TBD
-
-
-**BONUS** <br>
- Visualize this data using Power BI 
-
-***
-
-## Additional Questions
-#### Question 14
 Hannah Hammocks specializes in 5 different types of hammocks:
 * Hanging Chair Hammock ($45)
 * Honey Hammock (a hammock made for two) ($82)
@@ -110,18 +82,45 @@ Three Hanging Chair Hammocks were shipped yesterday to Canada and will be delive
 
 There is a last-minute order for one Honey Hammock in Cancun, Mexico! Hannah Hammocks will ship it the next morning; delivery is 4 days.
 
-**Section 14.A** <br>
+**Section 11.A** <br>
 Create a Hannah Hammocks table with all the specialized hammocks the small business offers and its pricing. 
 
 Create a Weekly Order Table for Hannah Hammocks incorporating all the hammocks the company sold this week as well as its shipping and delivery dates and whether an order was shipped internationally.
 
-**Section 14.B** <br>
+**Section 11.B** <br>
 How much did Hannah Hammocks earn per order? 
 
 What was the average net earnings per order compared to US and International order?
 
+## PowerBI Dashboard
+#### Question 12
+On which day of week were employees hired on? Rank by the percent of total in descending order.
+
+
+**BONUS** <br>
+Visualize this data using Power BI. Add link to a PDF file and put it in a new folder called Dashboard. 
+
 ***
 
-#### Question 15
-TBD
+#### Question 13
+Remote employees will need to track their hours they work each day. This will log a start time and then an end time.  
+
+**Section 13.A** <br>
+Create a table of PersonId, LogDate, StartTime, EndTime.  
+
+**Section 13.B** <br>
+Create a Stored Procedure that inserts this data based on an employee using a simple Start Time / End Time interface. The SP should determine whether to insert a new record or close out an existing record based on the existing data. Assume no one will work across midnight. Enter several weeks of data for at least 3 employees.
+
+**BONUS** <br>
+Visualize a time log with Employees along y axis and the hours work per week across the x axis for the last month. 
+
+**Note: ** If an employee does not enter an End Time, then ignore that record.
+
+***
+
+#### Question 14
+Using the Remote Employee work log data from Q#12, produce a visualization showing the average coverage time per day of the week for all remote employee over the course of the last month.
+
+***
+
 

@@ -269,22 +269,7 @@ ORDER BY YearsExperience
 --ANSWER: James Lolley and Timothy Riggs are the only IT Workers based in TN with more than 4 years of experience. 
 
 --QUESTION 11
---On which day of week were employees hired on? Rank by the percent of total in descending order.
-SELECT DayHired, (COUNT(CAST(PersonID AS float))/CAST(TotalWorkers AS float))*100 AS PctWorkers
-FROM (SELECT DATENAME(WEEKDAY, StartDate) AS DayHired, PersonID, COUNT(PersonID) OVER() AS TotalWorkers
-	FROM Persons) AS sub
-GROUP BY DayHired, TotalWorkers
-ORDER BY PctWorkers DESC
---ANSWER: Most workers were hired on Monday and Friday. Wednesday is the day the least amount of workers were hired.
-
---QUESTION 12
---TBD
-
---QUESTION 13
---TBD 
-
---QUESTION 14
---SECTION 14.A
+--SECTION 11.A
 --Create a Hannah Hammocks table with all the specialized hammocks the small business offers and its pricing
 BEGIN TRAN
 CREATE TABLE HannahHammocks (
@@ -306,7 +291,7 @@ VALUES ('Honey Hammock',82),('Quilted Hammock',60), ('Woven Hammock', 55), ('Cam
 SELECT *
 FROM HannahHammocks
 
---Create a Weekly Order Table for Hannah Hammocks incorporating all the hammocks the company sold this week.  
+--Create a Order Table for Hannah Hammocks incorporating all the hammocks the company sold this week.  
 BEGIN TRAN
 CREATE TABLE HH_Orders (
 	OrderNo int,
@@ -335,7 +320,7 @@ VALUES  (51, 'Hanging Chair Hammock', DATEADD(DAY,-1,GETDATE()), DATEADD(DAY,8, 
 SELECT *
 FROM HH_Orders
 
---SECTION 14.B
+--SECTION 11.B
 --For each day of shipping, Hannah Hammocks pays $2 (+$12 flat fee for orders to Mexico and Canada)
 --How much did Hannah Hammocks earn per order?
 SELECT OrderNo, GrossEarned-ShippingCost AS NetEarned
@@ -362,6 +347,28 @@ LEFT JOIN HH_Orders O
 GROUP BY ShippedIntl
 ORDER BY AVGEarnedPerOrder DESC
 
---QUESTION 15
---TBD
+--QUESTION 12
+--On which day of week were employees hired on? Rank by the percent of total in descending order.
+SELECT DayHired, (COUNT(CAST(PersonID AS float))/CAST(TotalWorkers AS float))*100 AS PctWorkers
+FROM (SELECT DATENAME(WEEKDAY, StartDate) AS DayHired, PersonID, COUNT(PersonID) OVER() AS TotalWorkers
+	FROM Persons) AS sub
+GROUP BY DayHired, TotalWorkers
+ORDER BY PctWorkers DESC
+--ANSWER: Most workers were hired on Monday and Friday. Wednesday is the day the least amount of workers were hired.
+
+--QUESTION 13
+--SECTION 13.A
+--Create a table of PersonId, LogDate, StartTime, EndTime
+CREATE TABLE RemoteEmployees (
+	PersonID int,
+	LogDate date,
+	StartTime time,
+	EndTime time
+);
+
+--QUESTION 13
+--TBD 
+
+
+
 
